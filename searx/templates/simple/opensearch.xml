@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
   <ShortName>{{ instance_name }}</ShortName>
-  <LongName>SearXNG metasearch</LongName>
+  <LongName>Sorvx</LongName>
   <Description>Sorvx Search Engine is Nepal's First And Own Private Search Engine With Fully Private Search.</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image type="image/png">{{ url_for('static', filename='img/favicon.png', _external=True) }}</Image>
