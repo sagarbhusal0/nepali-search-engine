@@ -2,9 +2,9 @@
 <html class="no-js theme-{{ preferences.get_value('simple_style') or 'auto' }} center-aligment-{{ preferences.get_value('center_alignment') and 'yes' or 'no' }}" lang="{{ locale_rfc5646 }}" {% if rtl %} dir="rtl"{% endif %}>
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="SearXNG — a privacy-respecting, open metasearch engine">
-  <meta name="keywords" content="SearXNG, search, search engine, metasearch, meta search">
-  <meta name="generator" content="searxng/{{ searx_version }}">
+  <meta name="description" content="Xyle Search Engine Nepal's First And Own Private Search Engine With Fully Private Search.>
+  <meta name="keywords" content="Xyle Search, search, Nepali search engine, metasearch, meta search , Nepal's Own Search Engine, Nepal's first search Engine, Search Engine in Nepal, " >
+  
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noarchive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,8 +28,54 @@
   <link title="{{ instance_name }}" type="application/opensearchdescription+xml" rel="search" href="{{ opensearch_url }}"/>
   {% endblock %}
   <link rel="icon" href="https://iili.io/dOvLBG2.png" sizes="any">
+
+    
+    <link rel="icon" href="https://iili.io/dOvLBG2.png" type="image/x-icon">
+   
   
   <link rel="apple-touch-icon" href="https://iili.io/dOvLBG2.png"/>
+  <style>
+  .dark-footer {
+  background-color: #202124;
+  color: #bdc1c6;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: #8ab4f8;
+  text-decoration: none;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links a {
+    margin: 5px 0;
+  }
+}</style>
 </head>
 <body class="{{ endpoint }}_endpoint" >
   <main id="main_{{  self._TemplateReference__context.name|replace("simple/", "")|replace(".html", "") }}" class="{{body_class}}">
@@ -70,28 +116,43 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer>
-    <p>
-    {{ _('Powered by') }} <a href="{{ url_for('info', pagename='about') }}">Xyle Host</a> 
-        <a href="https://xyle.host">{{ _('Xyle Host') }}</a>
-        | <a href="{{ get_setting('brand.issue_url') }}">{{ _('') }}</a>
-        {% if enable_metrics %}| <a href="{{ url_for('stats') }}">{{ _('Engine stats') }}</a>{% endif %}
-        {% if get_setting('brand.public_instances') %}
-        | <a href="{{ get_setting('brand.public_instances') }}">{{ _('') }}</a>
+  <footer class="dark-footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://xyle.host/">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>{{ _('Powered by Xyle Host') }}</span>
+        </a>
+        {% if enable_metrics %}
+        <a href="{{ url_for('stats') }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>{{ _('Engine stats') }}</span>
+        </a>
         {% endif %}
         {% if get_setting('general.privacypolicy_url') %}
-        | <a href="https://privacy.xyle.host">{{ _('Privacy policy') }}</a>
+        <a href="https://privacy.xyle.host">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>{{ _('Privacy policy') }}</span>
+        </a>
         {% endif %}
         {% if get_setting('general.contact_url') %}
-        | <a href="https://sagarb.com">{{ _('Made By Sagar Bhusal') }}</a>
+        <a href="https://sagarb.com">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>{{ _('Made By Sagar Bhusal') }}</span>
+        </a>
         {% endif %}
         {% for title, link in get_setting('brand.custom.links').items() %}
-        | <a href="{{ link }}">{{ _(title) }}</a>
+        <a href="{{ link }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>{{ _(title) }}</span>
+        </a>
         {% endfor %}
-    </p>
+      </div>
+    </div>
   </footer>
   <!--[if gte IE 9]>-->
   <script src="{{ url_for('static', filename='js/searxng.min.js') }}"></script>
   <!--<![endif]-->
 </body>
 </html>
+  
