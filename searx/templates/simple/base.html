@@ -1,160 +1,112 @@
 <!DOCTYPE html>
-<html class="no-js theme-{{ preferences.get_value('simple_style') or 'auto' }} center-aligment-{{ preferences.get_value('center_alignment') and 'yes' or 'no' }}" lang="{{ locale_rfc5646 }}" {% if rtl %} dir="rtl"{% endif %}>
+<html class="no-js theme-{{ preferences.get_value('simple_style') or 'auto' }} center-alignment-{{ preferences.get_value('center_alignment') and 'yes' or 'no' }}" lang="{{ locale_rfc5646 }}" {% if rtl %} dir="rtl"{% endif %}>
 <head>
   <meta charset="UTF-8" />
   <meta name="description" content="Sorvx Search Engine is Nepal's First And Own Private Search Engine With Fully Private Search.">
   <meta name="keywords" content="Sorvx, search, Nepali search engine, metasearch, meta search , Nepal's Own Search Engine, Nepal's first search Engine, Search Engine in Nepal, " >
-   <meta property="og:site_name" content="Sorvx">
+  <meta property="og:site_name" content="Sorvx">
   <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noarchive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="HandheldFriendly" content="True">
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
   <title>Sorvx</title>
-  {% block meta %}{% endblock %}
-  {% if rtl %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/searxng-rtl.min.css') }}" type="text/css" media="screen" />
-  {% else %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/searxng.min.css') }}" type="text/css" media="screen" />
-  {% endif %}
-  {% if get_setting('server.limiter') or get_setting('server.public_instance') %}
-  <link rel="stylesheet" href="{{ url_for('client_token', token=link_token) }}" type="text/css" />
-  {% endif %}
+
+  <!-- Include CSS styles -->
   {% block styles %}{% endblock %}
-  <!--[if gte IE 9]>-->
-  <script src="{{ url_for('static', filename='js/searxng.head.min.js') }}" client_settings="{{ client_settings }}"></script>
-  <!--<![endif]-->
-  {% block head %}
-  <link title="{{ instance_name }}" type="application/opensearchdescription+xml" rel="search" href="{{ opensearch_url }}"/>
-  {% endblock %}
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" sizes="any">
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}"/>
+
   <style>
-       body {
-     background-image: url('https://wallpapercave.com/wp/wp9161021.jpg');
-    background-size: cover; /* This ensures the image covers the whole page */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-  }
-  .dark-footer {
-  background-color: #202124;
-  color: #bdc1c6;
-  padding: 20px 0;
-  font-size: 14px;
+   body {
+    background-image: url('https://wallpapercave.com/wp/wp9161021.jpg') !important;
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents repeating */
 }
 
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+    .dark-footer {
+      background-color: #202124;
+      color: #bdc1c6;
+      padding: 20px 0;
+      font-size: 14px;
+    }
 
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.footer-links a {
-  color: #8ab4f8;
-  text-decoration: none;
-  margin: 0 15px;
-  transition: color 0.3s ease;
-}
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-.footer-links a:hover {
-  color: #fff;
-  text-decoration: underline;
-}
+    .footer-links a {
+      color: #8ab4f8;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
 
-@media (max-width: 600px) {
-  .footer-links {
-    flex-direction: column;
-    align-items: center;
-  }
+    .footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
 
-  .footer-links a {
-    margin: 5px 0;
-  }
-}</style>
+    .footer-links svg {
+      margin-right: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .footer-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-links a {
+        margin: 5px 0;
+      }
+    }
+  </style>
 </head>
-<body class="{{ endpoint }}_endpoint" >
-  <main id="main_{{  self._TemplateReference__context.name|replace("simple/", "")|replace(".html", "") }}" class="{{body_class}}">
-    {% if errors %}
-        <div class="dialog-error" role="alert">
-            <a href="#" class="close" aria-label="close" title="close">×</a>
-            <ul>
-            {% for message in errors %}
-                <li>{{ message }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+<body class="{{ endpoint }}_endpoint">
 
-    <nav id="links_on_top">
-      {%- from 'simple/icons.html' import icon_big -%}
-      {%- block linkto_about -%}
-        <a href="https://about.s.sagarb.com/" class="link_on_top_about">{{ icon_big('information-circle-outline') }}<span>{{ _('About') }}</span></a>
-      {%- endblock -%}
-      {%- block linkto_donate -%}
-        {%- if donation_url -%}
-        <a href="{{ donation_url }}" class="link_on_top_donate">{{ icon_big('heart-outline') }}<span>{{ _('Donate') }}</span></a>
-        {%- endif -%}
-      {%- endblock -%}
-      {%- block linkto_preferences -%}
-        <a href="{{ url_for('preferences') }}" class="link_on_top_preferences">{{ icon_big('menu-outline') }}<span>{{ _('Preferences') }}</span></a>
-      {%- endblock -%}
-      <a href="https://sagarb.com" class="link_on_top_dev">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-        <span>Dev</span>
-      </a>
-    </nav>
-    {% block header %}
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
+  <main id="main_{{ self._TemplateReference__context.name|replace('simple/', '')|replace('.html', '') }}" class="{{body_class}}">
+    <!-- Your main content will go here -->
   </main>
+
+  <!-- Footer Section -->
   <footer class="dark-footer">
     <div class="footer-content">
       <div class="footer-links">
         <a href="https://xyle.host/">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          <span>{{ _('Powered by Xyle Host') }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Powered by Xyle Host</span>
         </a>
-        {% if enable_metrics %}
-        <a href="{{ url_for('stats') }}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          <span>{{ _('Engine stats') }}</span>
-        </a>
-        {% endif %}
-        {% if get_setting('general.privacypolicy_url') %}
         <a href="https://privacy.xyle.host">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          <span>{{ _('Privacy policy') }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Privacy Policy</span>
         </a>
-        {% endif %}
-        {% if get_setting('general.contact_url') %}
         <a href="https://sagarb.com">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <span>{{ _('Made By Sagar Bhusal') }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Made by Sagar Bhusal</span>
         </a>
-        {% endif %}
-        {% for title, link in get_setting('brand.custom.links').items() %}
-        <a href="{{ link }}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-          <span>{{ _(title) }}</span>
-        </a>
-        {% endfor %}
       </div>
     </div>
   </footer>
-  <!--[if gte IE 9]>-->
+
+  <!-- JS Scripts -->
   <script src="{{ url_for('static', filename='js/searxng.min.js') }}"></script>
-  <!--<![endif]-->
+
 </body>
 </html>
-  
