@@ -16,7 +16,7 @@
   border-bottom: 1px solid var(--color-header-border);
   display: grid;
   column-gap: 1.2rem;
-  row-gap: 1rem;
+  row-gap: 0.7rem;
   grid-template-columns: 3rem 1fr;
   grid-template-areas:
     "logo search"
@@ -37,8 +37,9 @@
   }
 
   label {
-    svg {
-      padding-right: 0.2rem;
+    .category_name {
+      padding-left: 0.2rem;
+      padding-right: 0.13rem;
     }
 
     cursor: pointer;
@@ -64,23 +65,26 @@ button.category_button {
   background-color: inherit;
   color: var(--color-base-font);
   cursor: pointer;
-  padding: 0.2rem 0;
+  margin: 4px !important;
+  margin-bottom: 6px !important;
   display: inline-flex;
   align-items: center;
   text-transform: capitalize;
   font-size: 0.9em;
   border: none;
-  border-bottom: 2px solid transparent;
+  padding: 8px !important;
+  border-radius: 8px;
 
-  svg {
-    padding-right: 0.2rem;
+  .category_name {
+    padding-left: 0.2rem;
+    padding-right: 0.13rem;
   }
 
   &.selected,
   &:active,
   &:focus-within {
     color: var(--color-categories-item-selected-font);
-    border-bottom: 2px solid var(--color-categories-item-border-selected);
+    background: var(--color-search-background);
   }
 }
 
@@ -137,6 +141,7 @@ button.category_button {
   display: inline-flex;
   flex-direction: row;
   white-space: nowrap;
+  border: 1px solid var(--color-search-border);
   box-shadow: var(--color-search-shadow);
 }
 
@@ -303,22 +308,6 @@ html.no-js #clear_search.hide_if_nojs {
     display: inline-block;
     width: auto;
     margin: 0;
-
-    svg {
-      display: none;
-    }
-  }
-
-  .category_checkbox {
-    label {
-      padding: 1rem !important;
-      margin: 0 !important;
-    }
-  }
-
-  .category_button {
-    padding: 1rem !important;
-    margin: 0 !important;
   }
 
   #search_view:focus-within {
@@ -354,15 +343,25 @@ html.no-js #clear_search.hide_if_nojs {
   }
 }
 
+@media screen and (max-width: calc(@small-phone + 3.5em)) {
+  .category_name {
+    display: none;
+  }
+}
+
 @media screen and (max-width: @ultra-small-phone) {
+  #search_logo {
+    display: none;
+  }
+
   #search_header {
     grid-template-areas:
       "search search"
       "categories categories";
   }
 
-  #search_logo {
-    display: none;
+  #search_box {
+    border-radius: 0;
   }
 }
 
@@ -379,11 +378,63 @@ html.no-js #clear_search.hide_if_nojs {
   position: relative;
 }
 
+article.result {
+  background-color: var(--color-result-background);
+  border-radius: 0.75em;
+  padding: 0.75em;
+  margin: 0.5em;
+}
+
+.infobox {
+  background-color: var(--color-result-background) !important;
+  border-radius: 0.75em;
+  padding: 0.75em;
+  margin: 0.5em;
+}
+
+article.category-images {
+  padding-bottom: 4em;
+}
+
+@supports ((background-position-x: 100%) and ((appearance: none) or (-webkit-appearance: none) or (-moz-appearance: none))) {
+  html.theme-paulgo select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-frappe select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-macchiato select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-mocha select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-kagi select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-brave select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-moa select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+
+  html.theme-night select {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', @select-dark-svg-path);
+  }
+}
+
 .favicon img {
   height: 1.8rem;
   width: 1.8rem;
   border-radius: 20%;
-  background-color: var(--color-favicon-background-color);
-  border: 1px solid var(--color-favicon-border-color);
+  background-color: #ddd;
+  border: 1px solid #ccc;
   display: flex;
 }
