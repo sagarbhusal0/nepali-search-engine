@@ -5,7 +5,7 @@
 {{- result_sub_header(result) -}}
 
 {%- if result.embedded -%}
-    <small> &bull; <a class="text-info btn-collapse collapsed cursor-pointer media-loader disabled_if_nojs" data-toggle="collapse" data-target="#result-media-{{ index }}" data-btn-text-collapsed="{{ _('show media') }}" data-btn-text-not-collapsed="{{ _('hide media') }}">
+    <small> &bull; <a class="text-info btn-collapse collapsed cursor-pointer media-loader disabled_if_nojs" data-toggle="collapse" data-target="#result-media-{{ index }}" data-btn-text-collapsed="{{ _('') }}" data-btn-text-not-collapsed="{{ _('') }}">
     {%- if result.mtype == 'audio' %}{{ icon_small('musical-notes-outline') -}}
     {%- elif result.mtype == 'video' %} {{ icon_small('play-outline') -}}
     {%- endif %} {{ _('show media') }}</a></small>
